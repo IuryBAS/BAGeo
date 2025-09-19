@@ -9,6 +9,7 @@ import torchvision.transforms.functional as TF
 import argparse
 from tqdm import tqdm
 from rasterio.features import shapes
+from src.common.utils import makedir
 
 
 parser = argparse.ArgumentParser()
@@ -82,6 +83,8 @@ if __name__ == '__main__':
     if not os.path.exists(model_path):
         raise FileNotFoundError(f'File {model_path} does not exist')
     
+    # Create output mask folder if it does not exist
+    makedir('/'.join(output_path.split('/')[:-1]))
     
     # Load model
     pretrain_weights = torchvision.models.segmentation.DeepLabV3_ResNet50_Weights.DEFAULT
